@@ -3,13 +3,13 @@ const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const router = express.Router();
 
-
 //Create a User : Post "/api/auth/createuser". Doesn't require Authentication
 router.post('/createuser', [
     body('name', 'Enter a name with minimum 3 characters.').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Enter a password with minimum 3 characters.').isLength({ min: 3 }),
 ], async (req, res) => {
+
     //if there are errors, return bad request with error message
     const result = validationResult(req);
     if (!result.isEmpty()) {
