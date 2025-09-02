@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 //Secret String can be anything.
 const JWT_SECRET = 'MyNameIsSAM'
 
-//Create a User : Post "/api/auth/createuser". Doesn't require Authentication
+//ROUTE 1 : Create a User : Post "/api/auth/createuser". Doesn't require Authentication
 router.post('/createuser', [
     body('name', 'Enter a name with minimum 3 characters.').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
@@ -49,7 +49,44 @@ router.post('/createuser', [
     }
     catch (error) {
         console.error(error.message);
-        res.status(500).send("Some Error Occurred!")
+        res.status(500).send("Internal Server Error!")
+    }
+})
+
+//ROUTE 2: Authenticate a User : Post "/api/auth/login". Doesn't require Authentication
+router.post('/login', [
+    body('email', 'Enter a valid email').isEmail(),
+    body('password', 'Password should not be blank').isEmpty().isLength({ min: 1 }),
+], async (req, res) => {
+    //if there are errors, return bad request with error message
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        return res.status(400).json({ errors: result.array() });
+    }
+    const { email, password } = req.body;
+    try {
+        let user = await User.findOne({ email })
+
+        if (!user) {
+            return res.status(400).json({ error: "Invalid User and Password!" });
+        }
+
+        const checkPassword = await bcrypt.compare(password, user.password)
+        if (!checkPassword) {
+            return res.status(400).json({ error: "Invalid User and Password!" });
+        }
+
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+        const authtoken = jwt.sign(data, JWT_SECRET);
+        res.json({ authtoken });
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error!")
     }
 })
 
