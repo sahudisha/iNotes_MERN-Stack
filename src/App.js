@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 // Even if importing from react-router works today, it’s not the intended public API for web apps. Using react-router-dom keeps your code future-proof and aligned with the official ecosystem.
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NoteState from './context/notes/NoteState';
+import Alert from './components/Alert';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <NoteState>
         <Router>
           <NavBar />
+          <Alert message="This is Alert Message" />
           <div className="container">
             <Routes>
               {/* Exact is not required in latest react-router-dom */}
