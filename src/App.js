@@ -12,15 +12,17 @@ function App() {
       <NoteState>
         <Router>
           <NavBar />
-          <Routes>
-            {/* Exact is not required in latest react-router-dom */}
-            <Route path='/' element={
-              <Home />
-            }></Route>
-            <Route path='/about' element={
-              <About />
-            }></Route>
-          </Routes>
+          <div className="container">
+            <Routes>
+              {/* Exact is not required in latest react-router-dom */}
+              <Route path='/' element={
+                <Home />
+              }></Route>
+              <Route path='/about' element={
+                <About />
+              }></Route>
+            </Routes>
+          </div>
         </Router>
       </NoteState>
     </>
