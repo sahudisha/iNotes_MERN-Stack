@@ -3,78 +3,20 @@ import NoteContext from "./NoteContext";
 
 
 const NoteState = (props) => {
-    const notesInitial = [
-        {
-            "_id": "68ba9920f58c9669b5144bc1",
-            "user": "68b94d6acb6bcfad6e51aef2",
-            "title": "I am title",
-            "description": "My Real Name is Disha Sahu",
-            "tag": "personal",
-            "date": "2025-09-05T08:02:40.692Z",
-            "__v": 0
-        },
-        {
-            "_id": "68c27f9f769c9cc4f7a119d2",
-            "user": "68b94d6acb6bcfad6e51aef2",
-            "title": "I am title",
-            "description": "My Real Name is Disha Sahu",
-            "tag": "personal",
-            "date": "2025-09-11T07:51:59.196Z",
-            "__v": 0
-        }, {
-            "_id": "68ba9920f58c9669b5144bc3",
-            "user": "68b94d6acb6bcfad6e51aef2",
-            "title": "I am title",
-            "description": "My Real Name is Disha Sahu",
-            "tag": "personal",
-            "date": "2025-09-05T08:02:40.692Z",
-            "__v": 0
-        },
-        {
-            "_id": "68c27f9f769c9cc4f7a119d4",
-            "user": "68b94d6acb6bcfad6e51aef2",
-            "title": "I am title",
-            "description": "My Real Name is Disha Sahu",
-            "tag": "personal",
-            "date": "2025-09-11T07:51:59.196Z",
-            "__v": 0
-        }, {
-            "_id": "68ba9920f58c9669b5144bc5",
-            "user": "68b94d6acb6bcfad6e51aef2",
-            "title": "I am title",
-            "description": "My Real Name is Disha Sahu",
-            "tag": "personal",
-            "date": "2025-09-05T08:02:40.692Z",
-            "__v": 0
-        },
-        {
-            "_id": "68c27f9f769c9cc4f7a119d6",
-            "user": "68b94d6acb6bcfad6e51aef2",
-            "title": "I am title",
-            "description": "My Real Name is Disha Sahu",
-            "tag": "personal",
-            "date": "2025-09-11T07:51:59.196Z",
-            "__v": 0
-        }, {
-            "_id": "68ba9920f58c9669b5144bc7",
-            "user": "68b94d6acb6bcfad6e51aef2",
-            "title": "I am title",
-            "description": "My Real Name is Disha Sahu",
-            "tag": "personal",
-            "date": "2025-09-05T08:02:40.692Z",
-            "__v": 0
-        },
-        {
-            "_id": "68c27f9f769c9cc4f7a119d8",
-            "user": "68b94d6acb6bcfad6e51aef2",
-            "title": "I am title",
-            "description": "My Real Name is Disha Sahu",
-            "tag": "personal",
-            "date": "2025-09-11T07:51:59.196Z",
-            "__v": 0
-        }
-    ]
-    const [notes, setNotes] = useState(notesInitial)
+    const host = 'http://localhost:5000/api'
+    const [notes, setNotes] = useState([])
+
+    //Fetch all notes
+    const fetchAllNotes = async () => {
+        const response = await fetch(`${host}/notes/fetchallnotes`, {
+            method: 'GET',
+            headers: {
+                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjhiOTRkNmFjYjZiY2ZhZDZlNTFhZWYyIn0sImlhdCI6MTc1Njk3NDQ0Mn0.0lPoPM7ySJHfHWqI9NVScim1D5W8r26Bp4q5z2zkR_k'
+            }
+        });
+        const parsedJson = await response.json();
+        setNotes(parsedJson);
+    }
 
     //Add a note
     const addNote = (title, description, tag) => {
@@ -99,12 +41,12 @@ const NoteState = (props) => {
         setNotes(newNotes);
     }
     //Edit a note
-    const editNote = () => {
+    const editNote = (id, title, description, tag) => {
 
     }
 
     return (
-        <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote }}>
+        <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, fetchAllNotes }}>
             {props.children}
         </NoteContext.Provider>
     )
