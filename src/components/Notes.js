@@ -13,8 +13,8 @@ const Notes = () => {
     return (
         <>
             <AddNote />
-            <div className="row my-3">
-                <h2>Your Notes</h2>
+            <h2>Your Notes</h2>
+            <div className="container-fluid row my-3">
                 {notes.map((note) => {
                     return (
                         <NoteItem key={note._id} note={note} />
