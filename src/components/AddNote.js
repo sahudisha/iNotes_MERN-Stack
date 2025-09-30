@@ -11,6 +11,7 @@ const AddNote = () => {
     const handleClick = (e) => {
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
+        setNote({ title: "", description: '', tag: '' })
     }
     return (
         <div className="container my-3">
@@ -18,15 +19,15 @@ const AddNote = () => {
             <form className='my-3'>
                 <div className="form-group">
                     <label htmlFor="title">Title</label>
-                    <input type="text" className="form-control" id="title" name='title' placeholder="Enter Title" onChange={onChange} />
+                    <input type="text" className="form-control" id="title" name='title' placeholder="Enter Title" onChange={onChange} value={note.title} minLength={5} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="description">Description</label>
-                    <input type="text" className="form-control" id="description" name='description' placeholder="Enter Description" onChange={onChange} />
+                    <input type="text" className="form-control" id="description" name='description' placeholder="Enter Description" onChange={onChange} value={note.description} minLength={5} required />
                 </div>
                 <div className="form-group">
                     <label htmlFor="tag">Tag</label>
-                    <input type="text" className="form-control" id="tag" name='tag' placeholder="Enter Tag" onChange={onChange} />
+                    <input type="text" className="form-control" id="tag" name='tag' placeholder="Enter Tag" onChange={onChange} value={note.tag} required />
                 </div>
                 <button type="submit" className="btn btn-primary my-2" onClick={handleClick}>Add Note</button>
             </form>
