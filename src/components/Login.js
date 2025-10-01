@@ -20,11 +20,11 @@ const Login = (props) => {
         if (parsedJson.success) {
             //Save Token in LocalStorage and Redirect
             localStorage.setItem('auth-token', parsedJson.authtoken)
+            props.showAlert('Logged In Successfully', 'success');
             navigate('/');
-            props.showAlert('Logged In Successfully','success');
         }
         else {
-            props.showAlert('Invalid Credentials','danger');
+            props.showAlert('Invalid Credentials', 'danger');
         }
     }
 
@@ -32,7 +32,8 @@ const Login = (props) => {
         setCredential({ ...credential, [e.target.name]: e.target.value })
     }
     return (
-        <div>
+        <div className='mt-3'>
+            <h2>Login to use iNotes</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>

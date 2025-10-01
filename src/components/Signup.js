@@ -20,11 +20,11 @@ const Signup = (props) => {
     if (jsonResponse.success) {
       //Save Token in LocalStorage and Redirect
       localStorage.setItem('auth-token', jsonResponse.authtoken)
+      props.showAlert('Account Created Successfully', 'success')
       navigate('/');
-      props.showAlert('Account Created Successfully','success')
     }
     else {
-      props.showAlert('Invalid User','danger');
+      props.showAlert('Invalid User', 'danger');
     }
   }
 
@@ -32,7 +32,8 @@ const Signup = (props) => {
     setCredential({ ...credential, [e.target.name]: e.target.value })
   }
   return (
-    <div>
+    <div className='mt-3'>
+      <h2>Create an account for iNotes</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Full Name</label>
