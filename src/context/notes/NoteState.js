@@ -30,8 +30,8 @@ const NoteState = (props) => {
             body: JSON.stringify({ title, description, tag })
         });
 
-        const parsedJson = await response.json();
-        setNotes(notes.concat(parsedJson));
+        const jsonResponse = await response.json();
+        setNotes(notes.concat(jsonResponse));
     }
 
     //Delete a note
@@ -44,7 +44,7 @@ const NoteState = (props) => {
                 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjhiOTRkNmFjYjZiY2ZhZDZlNTFhZWYyIn0sImlhdCI6MTc1Njk3NDQ0Mn0.0lPoPM7ySJHfHWqI9NVScim1D5W8r26Bp4q5z2zkR_k'
             }
         });
-        const parsedJson = await response.json();
+        const jsonResponse = await response.json();
 
         //Logic to delete in Client
         const newNotes = notes.filter((note) => { return note._id !== id })
@@ -62,7 +62,7 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ title, description, tag })
         });
-        const parsedJson = await response.json();
+        const jsonResponse = await response.json();
 
         //Logic to Edit with Client
         setNotes(notes.map(note =>

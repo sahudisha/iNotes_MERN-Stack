@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = (props) => {
 
     const [credential, setCredential] = useState({ email: '', password: '' })
     const host = 'http://localhost:5000/api'
@@ -21,9 +21,10 @@ const Login = () => {
             //Save Token in LocalStorage and Redirect
             localStorage.setItem('auth-token', parsedJson.authtoken)
             navigate('/');
+            props.showAlert('Logged In Successfully','success');
         }
         else {
-            alert('Invalid Credentials!!!');
+            props.showAlert('Invalid Credentials','danger');
         }
     }
 
