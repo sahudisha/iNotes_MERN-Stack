@@ -59,10 +59,10 @@ router.post('/login', [
     body('password', 'Password should not be blank').notEmpty(),
 ], async (req, res) => {
     //if there are errors, return bad request with error message
-
+    let success = false;
     const result = validationResult(req);
     if (!result.isEmpty()) {
-        return res.status(400).json({ errors: result.array() });
+        return res.status(400).json({ success, errors: result.array() });
     }
 
     // Destructuring email and password from req.body
@@ -71,12 +71,12 @@ router.post('/login', [
         let user = await User.findOne({ email })
 
         if (!user) {
-            return res.status(400).json({ error: "Invalid User and Password!" });
+            return res.status(400).json({ success, error: "Invalid User and Password!" });
         }
 
         const checkPassword = await bcrypt.compare(password, user.password)
         if (!checkPassword) {
-            return res.status(400).json({ error: "Invalid User and Password!" });
+            return res.status(400).json({ success, error: "Invalid User and Password!" });
         }
 
         const data = {
@@ -85,7 +85,8 @@ router.post('/login', [
             }
         }
         const authtoken = jwt.sign(data, JWT_SECRET);
-        res.json({ authtoken });
+        success = true;
+        res.json({ success, authtoken });
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error!")

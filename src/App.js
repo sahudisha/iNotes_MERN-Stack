@@ -6,6 +6,8 @@ import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NoteState from './context/notes/NoteState';
 import Alert from './components/Alert';
+import Signup from './components/Signup';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -22,6 +24,12 @@ function App() {
               }></Route>
               <Route path='/about' element={
                 <About />
+              }></Route>
+              <Route path='/login' element={
+                <Login />
+              }></Route>
+              <Route path='/signup' element={
+                <Signup />
               }></Route>
             </Routes>
           </div>

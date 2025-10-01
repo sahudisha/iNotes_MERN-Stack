@@ -14,7 +14,7 @@ const Notes = () => {
         fetchAllNotes();
         // eslint-disable-next-line
     }, [])
-    
+
     const updateNote = (currentNote) => {
         ref.current.click();
         setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
@@ -47,15 +47,15 @@ const Notes = () => {
                             <form className='my-3'>
                                 <div className="form-group">
                                     <label htmlFor="etitle">Title</label>
-                                    <input type="text" className="form-control" id="etitle" name='etitle' placeholder="Enter Title" onChange={onChange} value={note.etitle} minLength={5} required/>
+                                    <input type="text" className="form-control" id="etitle" name='etitle' placeholder="Enter Title" onChange={onChange} value={note.etitle} minLength={5} required />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="edescription">Description</label>
-                                    <input type="text" className="form-control" id="edescription" name='edescription' placeholder="Enter Description" value={note.edescription} onChange={onChange} minLength={5}  required/>
+                                    <input type="text" className="form-control" id="edescription" name='edescription' placeholder="Enter Description" value={note.edescription} onChange={onChange} minLength={5} required />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="etag">Tag</label>
-                                    <input type="text" className="form-control" id="etag" name='etag' placeholder="Enter Tag" value={note.etag} onChange={onChange} required/>
+                                    <input type="text" className="form-control" id="etag" name='etag' placeholder="Enter Tag" value={note.etag} onChange={onChange} required />
                                 </div>
                             </form>
                         </div>
@@ -69,11 +69,13 @@ const Notes = () => {
             {/* Modal End */}
             <h2>Your Notes</h2>
             <div className="container-fluid row my-3">
-                {notes.map((note) => {
-                    return (
-                        <NoteItem key={note._id} updateNote={updateNote} note={note} />
-                    )
-                })}
+                {notes.length === 0 ? 'No Notes to Display' :
+                    notes.map((note) => {
+                        return (
+                            <NoteItem key={note._id} updateNote={updateNote} note={note} />
+                        )
+                    })
+                }
             </div>
         </>
     )

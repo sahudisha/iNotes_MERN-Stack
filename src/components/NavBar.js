@@ -21,6 +21,10 @@ export class NavBar extends Component {
                             </li>
                         </ul>
                     </div>
+                    <form className="d-flex">
+                        <NavLink to="/login" className="btn btn-primary mx-1" role="button">Login</NavLink>
+                        <NavLink to="/signup" className="btn btn-primary mx-1" role="button">Signup</NavLink>
+                    </form>
                 </div>
             </nav>
         );
